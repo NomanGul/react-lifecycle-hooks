@@ -4,20 +4,25 @@ export default class Kid extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { emotion: 'nervous', danceSteps: [], currentStepIndex: 0, startedPerforming: false };
+    this.state = { emotion: 'nervous', danceSteps: [], currentStepIndex: 0, startedPerforming: false, applaudStr: false };
   }
 
   static getDerivedStateFromProps(props, state) {
-    console.log(props.furtherSteps)
-    return { danceSteps: props.furtherSteps }
+    const { furtherSteps, sendApplaudStatus } = props
+    // console.log(state.danceSteps)
+    console.log(props);
+
+
+    return { danceSteps: furtherSteps, emotion: sendApplaudStatus ? 'Happy' : 'nervous' }
   }
 
   componentDidMount() {
     const { danceSteps } = this.state
     danceSteps.push('step1');
     danceSteps.push('step2');
-    this.setState({ danceSteps: danceSteps, startedPerforming: true })
+    this.setState({ danceSteps, startedPerforming: true })
   }
+
 
   qualified() {
     this.setState({ startedPerforming: false })
@@ -26,7 +31,8 @@ export default class Kid extends React.Component {
   render() {
     const { dressColor } = this.props;
     const { danceSteps, emotion, startedPerforming, currentStepIndex } = this.state;
-
+    console.log(danceSteps, currentStepIndex, danceSteps[currentStepIndex], "***");
+    console.log(this.state.applaudStr);
     return (
       <div>
         <div>dressColor: {dressColor})</div>
