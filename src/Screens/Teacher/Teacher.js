@@ -1,5 +1,4 @@
 import React from 'react';
-import Kid from "../Kid/Kid";
 
 export default class Teacher extends React.Component {
   constructor(props) {
