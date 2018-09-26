@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Kid from "./Screens/Kid/Kid";
 import Teacher from "./Screens/Teacher/Teacher";
@@ -11,10 +10,15 @@ class App extends Component {
     this.state = {
       volume: 0,
       nextSteps: [],
-      applaud: ''
+      applaud: '',
+      stars: 0,
+      available: false,
+      renderJudges: false
     }
     this.furtherSteps = this.furtherSteps.bind(this)
     this.getApplaudStatus = this.getApplaudStatus.bind(this)
+    this.recieveStars = this.recieveStars.bind(this)
+    this.renderJudgesComp = this.renderJudgesComp.bind(this)
   }
 
   furtherSteps(nextSteps) {
@@ -25,24 +29,42 @@ class App extends Component {
     this.setState({ applaud })
   }
 
+  recieveStars(stars) {
+    this.setState({ stars })
+  }
+
+  renderJudgesComp(param) {
+    this.setState({ renderJudges: param })
+    console.log(param);
+
+  }
+
   componentWillMount() {
-    this.setState({ volume: 5 })
+    this.setState({ volume: 5, available: true, renderJudges: true })
   }
 
 
   render() {
-    const { nextSteps, applaud } = this.state
+    const { nextSteps, applaud, stars, available, renderJudges } = this.state
     return (
       <div className="App">
         <h1 className="App-title">React Life-Cycle Hooks</h1>
         {/* <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
         </header> */}
-        <Kid dressColor="blue" furtherSteps={nextSteps} sendApplaudStatus={applaud} />
+        {
+          available ? <div>
+            <Kid dressColor="blue" furtherSteps={nextSteps} sendApplaudStatus={applaud} sendStars={stars} renderJudgesComp={this.renderJudgesComp} />
+            <hr />
+            <Teacher myCallBack={this.furtherSteps} />
+            <br />
+            <button onClick={() => { this.setState({ available: false }); }}>Leave Kid</button>
+          </div> : <div>Kid is not available</div>
+        }
         <hr />
-        <Teacher myCallBack={this.furtherSteps} />
-        <hr />
-        <Judge getApplaudStatus={this.getApplaudStatus} />
+        {
+          renderJudges ? <Judge getApplaudStatus={this.getApplaudStatus} recieveStars={this.recieveStars} available={available} /> : <div>Judges left the Auditorium</div>
+        }
       </div>
     );
   }
