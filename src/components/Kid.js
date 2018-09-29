@@ -24,8 +24,8 @@ export default class Kid extends React.Component {
 
   componentDidMount() {
     const { danceSteps } = this.state;
-    danceSteps.push("step1");
-    danceSteps.push("step2");
+    danceSteps.push("step1", "step2");
+    // danceSteps.push("step2");
     this.setState({ danceSteps, startedPerforming: true });
   }
 

@@ -53,7 +53,7 @@ class App extends Component {
         {available ? (
           <div>
             <Kid
-              dressColor="blue"
+              dressColor="yellow"
               furtherSteps={nextSteps}
               sendApplaudStatus={applaud}
               sendStars={stars}
