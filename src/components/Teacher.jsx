@@ -7,7 +7,6 @@ export default class Teacher extends React.Component {
   }
   sendDataToKid() {
     const furtherSteps = ["step3", "step4", "step5"];
-    //Send this data to Kid.js
     this.props.myCallBack(furtherSteps);
   }
 

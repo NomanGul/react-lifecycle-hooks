@@ -9,7 +9,7 @@ export default class Judge extends React.Component {
   }
 
   applaud() {
-    this.props.getApplaudStatus(true);
+    this.props.applaudValue(true);
   }
 
   provideStars() {
@@ -28,7 +28,6 @@ export default class Judge extends React.Component {
 
   render() {
     const { stars, available } = this.state;
-    // console.log(stars, "render");
 
     return (
       <div>

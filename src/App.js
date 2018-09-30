@@ -7,25 +7,25 @@ import Judge from "./components/Judge";
 class App extends Component {
   constructor() {
     super();
+    this.furtherSteps = this.furtherSteps.bind(this);
+    this.applaudValue = this.applaudValue.bind(this);
+    this.recieveStars = this.recieveStars.bind(this);
+    this.renderJudge = this.renderJudge.bind(this);
     this.state = {
       volume: 0,
-      nextSteps: [],
-      applaud: "",
-      stars: 0,
       available: false,
+      stars: 0,
+      applaud: "",
+      nextSteps: [],
       renderJudges: false
     };
-    this.furtherSteps = this.furtherSteps.bind(this);
-    this.getApplaudStatus = this.getApplaudStatus.bind(this);
-    this.recieveStars = this.recieveStars.bind(this);
-    this.renderJudgesComp = this.renderJudgesComp.bind(this);
   }
 
   furtherSteps(nextSteps) {
     this.setState({ nextSteps });
   }
 
-  getApplaudStatus(applaud) {
+  applaudValue(applaud) {
     this.setState({ applaud });
   }
 
@@ -33,7 +33,7 @@ class App extends Component {
     this.setState({ stars });
   }
 
-  renderJudgesComp(param) {
+  renderJudge(param) {
     this.setState({ renderJudges: param });
     console.log(param);
   }
@@ -46,10 +46,7 @@ class App extends Component {
     const { nextSteps, applaud, stars, available, renderJudges } = this.state;
     return (
       <div className="App">
-        <h1 className="App-title">React Life-Cycle Hooks</h1>
-        {/* <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-        </header> */}
+        <h1 className="App-title">React LifeCycle Methods</h1>
         {available ? (
           <div>
             <Kid
@@ -57,7 +54,7 @@ class App extends Component {
               furtherSteps={nextSteps}
               sendApplaudStatus={applaud}
               sendStars={stars}
-              renderJudgesComp={this.renderJudgesComp}
+              renderJudge={this.renderJudge}
             />
             <hr />
             <Teacher myCallBack={this.furtherSteps} />
@@ -71,18 +68,18 @@ class App extends Component {
             </button>
           </div>
         ) : (
-          <div>Kid is not available</div>
-        )}
+            <div>Kid not available</div>
+          )}
         <hr />
         {renderJudges ? (
           <Judge
-            getApplaudStatus={this.getApplaudStatus}
+            applaudValue={this.applaudValue}
             recieveStars={this.recieveStars}
             available={available}
           />
         ) : (
-          <div>Judges left the Auditorium</div>
-        )}
+            <div>Judges left</div>
+          )}
       </div>
     );
   }

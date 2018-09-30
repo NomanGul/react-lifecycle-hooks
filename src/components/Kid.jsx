@@ -40,7 +40,7 @@ export default class Kid extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.renderJudgesComp(false);
+    this.props.renderJudge(false);
   }
 
   render() {
